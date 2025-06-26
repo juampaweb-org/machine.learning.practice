@@ -1,51 +1,56 @@
-
 import numpy as np
 import pandas as pd
 
 
 
+class DataPreprocessor:
+    """Class for preprocessing data."""
 
-def load_data(file_path):
-    """
-    Load data from a CSV file.
-    Args:
-        file_path (str): Path to the CSV file.
-    Returns:
-        pd.DataFrame: DataFrame containing the loaded data.
-    """
-    try:
-        data = pd.read_csv(file_path)
-        return data
-    except Exception as e:
-        print(f"Error loading data: {e}")
-        return None
+    dataset = None
+
+    def __init__(self, csv_file_titanic):
+        self.dataset = self.load_data(csv_file_titanic)
+        if self.dataset is None:
+            raise ValueError("Failed to load the Titanic dataset.")
+        
+
+    def load_data(self, file_path):
+        """
+        Load data from a CSV file.
+        Args:
+            file_path (str): Path to the CSV file.
+        Returns:
+            pd.DataFrame: DataFrame containing the loaded data.
+        """
+        try:
+            data = pd.read_csv(file_path)
+            print("Data loaded successfully. Preprocessing...")
+            if data.empty:
+                print("Warning: The dataset is empty.")
+                return None
+            return data
+        except Exception as e:
+            print(f"Error loading data: {e}")
+            return None
 
 
 
-def preprocess_data(data):
-    """
-    Preprocess the data by handling missing values and normalizing numerical features.
-    Args:
-        data (pd.DataFrame): DataFrame containing the data to preprocess.
-    Returns:
-        pd.DataFrame: Preprocessed DataFrame.
-    """
-    
-    
-    data_titanic = load_data('titanic.data.csv')
-
-    if data_titanic is None:
-        return None
-
-    print("Data loaded successfully. Preprocessing...")
-    print(data_titanic.head())
-
-    exit()
-    
+    def search_null_data(self, data):
+        """
+        Preprocess the data by handling missing values and normalizing numerical features.
+        Args:
+            data (pd.DataFrame): DataFrame containing the data to preprocess.
+        Returns:
+            pd.DataFrame: Preprocessed DataFrame.
+        """
+        missing_values = self.dataset.isnull().sum()
+        print("Valores faltantes por variable:")
+        print(missing_values)
+        
 
 def main():
-    # Tu código principal aquí
-    preprocess_data(None)
+    data_titanic = DataPreprocessor('titanic.data.csv')
+    data_titanic.search_null_data(data_titanic.dataset)
     
 if __name__ == "__main__":
     main()
