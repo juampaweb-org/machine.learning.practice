@@ -22,7 +22,8 @@ def load_data(file_path):
 
 
 
-def preprocess_data(data):    """
+def preprocess_data(data):
+    """
     Preprocess the data by handling missing values and normalizing numerical features.
     Args:
         data (pd.DataFrame): DataFrame containing the data to preprocess.
@@ -37,7 +38,14 @@ def preprocess_data(data):    """
         return None
 
     print("Data loaded successfully. Preprocessing...")
-    print(data_titanic.head()
-          
-    exit())
+    print(data_titanic.head())
+
+    exit()
     
+
+def main():
+    # Tu código principal aquí
+    preprocess_data(None)
+    
+if __name__ == "__main__":
+    main()
